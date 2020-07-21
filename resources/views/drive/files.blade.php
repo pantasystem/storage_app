@@ -5,19 +5,24 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">アップロード</div>
+            <form action="files" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                <div class="card-body">
-                    
-                    <form action="files" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="file">
-                        <button type="submit">アップロード</button>
-                    </form>
-                    
+                <div class="card">
+                    <div class="card-header">
+                        ファイルのアップロード
+                        
+                    </div>
+    
+                    <div class="card-body">
+                        <input type="file" name="file" class="form-control-file">
+                        <button type="submit" class="btn btn-primary" id="upload-button">アップロード</button>
+                    </div>
                 </div>
-            </div>
+                
+                
+            </form>
+            
             <div class="card">
                 <div class="card-header">{{ $user->name }}のファイル一覧</div>
 
