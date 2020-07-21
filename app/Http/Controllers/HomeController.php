@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\File;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -29,14 +30,18 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function upload($request)
+    public function upload(Request $request)
     {
         if($request->isMethod('get')){
             return view('drive.upload');
         }
-        $path = Storage::make('public')->putFile('drive', $request->file('file'));
+        $f = $request->file('file');
+        $path = Storage::disk('public')->putFile('drive', $f);
+        $size = Storage::disk('public')->size($path);
         $file = Auth::user()->files()->create([
-                'path' => $path
+                'path' => $path,
+                'name' => $f->getClientOriginalName(),
+                'size' => $size,
         ]);
 
         return redirect()->route('files');
@@ -44,8 +49,8 @@ class HomeController extends Controller
 
     public function files(Request $requiest)
     {
-        $user = $request->user();
-        $files = $user->files();
+        $user = Auth::user();
+        $files = $user->files()->get();
 
         $data = [
             'files' => $files,

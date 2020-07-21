@@ -13,10 +13,16 @@ class CreateFileTable extends Migration
      */
     public function up()
     {
-        Schema::create('file', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('path');
+            $table->integer('user_id');
+            $table->integer('size');
+            $table->text('name');
+            $table->foreign('user_id')
+            ->references('id')->on('users')
+            ->onDelete('cascade');
         });
     }
 
