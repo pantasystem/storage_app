@@ -10928,3 +10928,11 @@ a.text-dark:focus {
   }
 }
 
+.card {
+  margin-bottom: 16px;
+}
+
+.file_item {
+  margin-bottom: 16px;
+}
+

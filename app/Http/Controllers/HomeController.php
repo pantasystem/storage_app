@@ -32,6 +32,9 @@ class HomeController extends Controller
 
     public function upload(Request $request)
     {
+        $request->validate([
+            'file'=> 'required|max:1000000000'
+        ]);
         if($request->isMethod('get')){
             return view('drive.upload');
         }
