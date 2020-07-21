@@ -28,7 +28,8 @@
                                 {{$file->name}}
                             </a>
                             
-                        <form method="POST" action="files/{{$file->path}}">
+                        <form method="POST" action="files/{{$file->id}}">
+                            @csrf
                             <input name="_method" type="hidden" value="DELETE">
                             <input type="submit" value="削除">
                         </form>

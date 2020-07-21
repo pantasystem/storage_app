@@ -33,7 +33,7 @@ class HomeController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file'=> 'required|max:1000000000'
+            'file'=> 'required|max:1000000'
         ]);
         if($request->isMethod('get')){
             return view('drive.upload');
@@ -60,11 +60,15 @@ class HomeController extends Controller
         return view('drive.files',compact('files', 'user'));
     }
 
-    public function delete(Request $request, $path)
+    public function delete(Request $request, $fileId)
     {
         $user = Auth::user();
-        $count = $user->files()->where('path', $request->input($path))->delete();
-        if( count > 0 ){
+        $file = $user->files->where('id', '=', $fileId)->first();
+        $count = $file->delete();
+
+        $path = $file->path;
+        
+        if(Storage::disk('public')->exists($path)){
             Storage::disk('local')->delete('backup/' . $path);
             Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
         }

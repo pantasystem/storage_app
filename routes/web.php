@@ -25,4 +25,4 @@ Route::get('/files', 'HomeController@files')->name('files');
 
 Route::post('/files', 'HomeController@upload');
 
-Route::delete('files/{path}', 'HomeController@delete');
+Route::delete('files/{fileId}', 'HomeController@delete');
