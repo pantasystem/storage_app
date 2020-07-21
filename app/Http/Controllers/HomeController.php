@@ -50,12 +50,21 @@ class HomeController extends Controller
     public function files(Request $requiest)
     {
         $user = Auth::user();
-        $files = $user->files()->get();
+        //$user = User::findOrFail($userId)->first();
+        //$files = $user->files();
+        $files = $user->files();
 
-        $data = [
-            'files' => $files,
-        ];
+        return view('drive.files',compact('files', 'user'));
+    }
 
-        return view('drive.files', $data);
+    public function delete(Request $request, $path)
+    {
+        $user = Auth::user();
+        $count = $user->files()->where('path', $request->input($path))->delete();
+        if( count > 0 ){
+            Storage::disk('local')->delete('backup/' . $path);
+            Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
+        }
+        return redirect()->route('files');
     }
 }
