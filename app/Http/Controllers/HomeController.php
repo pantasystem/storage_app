@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function upload($request)
     {
         if($request->isMethod('get')){
-            return view('drive.upload')
+            return view('drive.upload');
         }
         $path = Storage::make('public')->putFile('drive', $request->file('file'));
         $file = Auth::user()->files()->create([
