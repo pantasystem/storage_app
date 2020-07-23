@@ -19,10 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@files')->name('home');
+Route::get('/home', 'DriveController@files')->name('home');
 
-Route::get('/files', 'HomeController@files')->name('files');
+Route::get('/files', 'DriveController@files')->name('files');
 
-Route::post('/files', 'HomeController@upload');
+Route::post('/files', 'DriveController@upload');
 
-Route::delete('files/{fileId}', 'HomeController@delete');
+Route::delete('files/{fileId}', 'DriveController@delete');

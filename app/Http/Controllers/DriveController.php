@@ -8,7 +8,7 @@ use App\User;
 use App\File;
 use Illuminate\Support\Facades\Storage;
 
-class HomeController extends Controller
+class DriveController extends Controller
 {
     /**
      * Create a new controller instance.
