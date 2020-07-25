@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="app">
-        <example-component></example-component>
+        <nav-header></nav-header>
         <drive-component></drive-component>
       
     </div>
