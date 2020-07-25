@@ -21,7 +21,7 @@
 <body>
     <div id="app">
         <nav-header></nav-header>
-        <drive-component></drive-component>
+        <router-view/>
       
     </div>
 <script src="{{ mix('js/app.js') }}" defer></script>

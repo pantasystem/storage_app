@@ -12,8 +12,8 @@
 </div>
 </template>
 <script>
-import FileUploadComponent from './FileUploaderComponent';
-import FilesComponent from './FilesComponent';
+import FileUploadComponent from './../components/FileUploaderComponent';
+import FilesComponent from './../components/FilesComponent';
 export default {
     components: {
         'file-upload-component': FileUploadComponent,

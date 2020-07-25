@@ -53,6 +53,7 @@ export default {
         logout : function(){
 
         }
-    }
+    },
+    
 }
 </script>
