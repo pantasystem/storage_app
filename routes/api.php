@@ -25,3 +25,10 @@ Route::get('/greet', function () {
 Route::get('/user_info', function (Request $request) {
     return Auth::user();
 })->middleware('auth');
+
+Route::get('/files', 'Api\DriveController@files');
+
+Route::delete('/files/{fileId}', 'Api\DriveController@delete');
+
+Route::post('/files', 'Api\DriveController@upload');
+
