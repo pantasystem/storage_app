@@ -21,7 +21,9 @@
 <body>
     <div id="app">
         <nav-header></nav-header>
-        <router-view/>
+        <main class="py-4">
+            <router-view/>
+        </main>
       
     </div>
 <script src="{{ mix('js/app.js') }}" defer></script>
