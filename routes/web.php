@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'DriveController@files')->name('home');
+Route::get('/', 'DriveController@files')->name('home');
 
 Route::get('/files', 'DriveController@files')->name('files');
 

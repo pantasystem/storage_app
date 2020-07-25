@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/greet', function () {
+    return 'Hello world';
+});
+
+Route::get('/user_info', function (Request $request) {
+    return Auth::user();
+})->middleware('auth');
