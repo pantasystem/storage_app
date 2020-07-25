@@ -21,6 +21,7 @@
 <body>
     <div id="app">
         <example-component></example-component>
+        <drive-component></drive-component>
       
     </div>
 <script src="{{ mix('js/app.js') }}" defer></script>
