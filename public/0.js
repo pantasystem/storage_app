@@ -88,13 +88,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: 'hogehoge@panta.jp',
-      password: 'hogehogemover',
+      email: '',
+      password: '',
       isRemember: true,
       error: {
         email: '',
         password: '',
-        message: 'error test'
+        message: ''
       }
     };
   },

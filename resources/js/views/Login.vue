@@ -79,13 +79,13 @@ export default {
     
     data: function(){
         return {
-            email: 'hogehoge@panta.jp',
-            password: 'hogehogemover',
+            email: '',
+            password: '',
             isRemember: true,
             error: {
                 email: '',
                 password: '',
-                message: 'error test'
+                message: ''
             }
         }
     },
