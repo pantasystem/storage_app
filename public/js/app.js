@@ -55028,7 +55028,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         state.commit("setUser", res.body);
       })["catch"](function (error) {});
     },
-    logout: function logout() {}
+    logout: function logout() {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get();
+    }
   },
   modules: {}
 }));

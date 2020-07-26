@@ -27,7 +27,7 @@ export default new Vuex.Store({
             });
       },
       logout: function(){
-          
+          axios.get()
       },
 
 
