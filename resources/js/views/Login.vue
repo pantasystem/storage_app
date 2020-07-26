@@ -75,8 +75,10 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
-    
+   
     data: function(){
         return {
             email: '',
@@ -92,7 +94,9 @@ export default {
 
     methods: {
         login: function(){
-
+            let self = this;
+            console.log(axios.defaults.baseURL);
+            
         }
     }
 }

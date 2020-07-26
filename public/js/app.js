@@ -54658,6 +54658,8 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var apiBaseUrl = document.head.querySelector('meta[name="api-base-url"]').content;
+window.axios.defaults.baseURL = apiBaseUrl;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -55011,12 +55013,22 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {},
+  state: {
+    user: null,
+    files: []
+  },
   mutations: {
-    setUser: function setUser(user) {}
+    setUser: function setUser(state, user) {
+      state.user = user;
+    }
   },
   actions: {
-    getUser: function getUser() {}
+    loadUser: function loadUser(state) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user').then(function (res) {
+        state.commit("setUser", res.body);
+      })["catch"](function (error) {});
+    },
+    logout: function logout() {}
   },
   modules: {}
 }));
