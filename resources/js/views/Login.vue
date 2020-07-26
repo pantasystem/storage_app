@@ -14,11 +14,12 @@
                             <input 
                                 id="email" 
                                 type="email" 
-                                v-bind:class="{'is-invalid':error.email}"
-                                class="form-control is-invalid @enderror" 
+                                v-bind:class="{'is-invalid' : error.email}"
+                                class="form-control" 
                                 name="email" 
-                                v-bind="email" 
-                                required autocomplete="email" autofocus>
+                                v-model="email" 
+                                required autocomplete="email" autofocus
+                                >
 
                             <span class="invalid-feedback" role="alert" v-if="error.email">
                                 <strong>{{ error.message }}</strong>
@@ -36,7 +37,8 @@
                                 class="form-control" 
                                 v-bind:class="{ 'is-invalid' : error.password }" 
                                 name="password" 
-                                required autocomplete="current-password">
+                                required autocomplete="current-password"
+                                v-model="password">
 
                             <span class="invalid-feedback" role="alert" v-if="error.password">
                                     <strong>{{ error.message }}</strong>
@@ -77,13 +79,13 @@ export default {
     
     data: function(){
         return {
-            email: '',
-            password: '',
-            isRemember: false,
+            email: 'hogehoge@panta.jp',
+            password: 'hogehogemover',
+            isRemember: true,
             error: {
                 email: '',
                 password: '',
-                message: ''
+                message: 'error test'
             }
         }
     },
