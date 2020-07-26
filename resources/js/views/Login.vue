@@ -11,7 +11,14 @@
                         <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control is-invalid @enderror" name="email" v-bind="email" required autocomplete="email" autofocus>
+                            <input 
+                                id="email" 
+                                type="email" 
+                                v-bind:class="{'is-invalid':error.email}"
+                                class="form-control is-invalid @enderror" 
+                                name="email" 
+                                v-bind="email" 
+                                required autocomplete="email" autofocus>
 
                             <span class="invalid-feedback" role="alert" v-if="error.email">
                                 <strong>{{ error.message }}</strong>
@@ -23,7 +30,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
                             <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <input 
+                                id="password" 
+                                type="password" 
+                                class="form-control" 
+                                v-bind:class="{ 'is-invalid' : error.password }" 
+                                name="password" 
+                                required autocomplete="current-password">
 
                             <span class="invalid-feedback" role="alert" v-if="error.password">
                                     <strong>{{ error.message }}</strong>
