@@ -2205,7 +2205,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    logout: function logout() {}
+    logout: function logout() {
+      this.$store.dispatch("logout");
+    }
   },
   computed: {
     user: function user() {
@@ -55072,8 +55074,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         state.commit("setUser", null);
       });
     },
-    logout: function logout() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/logout").then(function (res) {})["catch"](function (error) {});
+    logout: function logout(state) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/logout").then(function (res) {
+        state.commit("setUser", null);
+        state.commit("setFiles", []);
+        this.$router.Push("login");
+      })["catch"](function (error) {});
     },
     loadFiles: function loadFiles(state) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/files").then(function (res) {

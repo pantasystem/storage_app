@@ -31,10 +31,13 @@ export default new Vuex.Store({
                 state.commit("setUser", null)
             });
       },
-      logout: function(){
-          axios.get("/logout")
+      logout: function(state){
+          axios.post("/logout")
             .then(function(res){
+                state.commit("setUser", null);
+                state.commit("setFiles", []);
 
+                this.$router.Push("login");
             }).catch(function(error){
 
             });

@@ -84,11 +84,8 @@ export default {
             email: '',
             password: '',
             isRemember: true,
-            error: {
-                email: '',
-                password: '',
-                message: ''
-            }
+            error: {}
+            
         }
     },
 
@@ -106,7 +103,26 @@ export default {
                     console.log(res);
                     self.$store.dispatch("loadUser");
                 }).catch(function(error){
-                    console.error(error);
+                    //self.error = self.error.response.data;
+                    if(error.response.data){
+                        //console.log("login error" + JSON.stringify(error));
+                        console.log("errors:" + JSON.stringify(error.response.data));
+                        let e = error.response.data;
+                        
+                        let obj = {
+                            message: e.message
+                        };
+                        if(e.errors.email){
+                            obj.email = e.errors.email[0];
+                        }
+                        if(e.errors.password){
+                            obj.password = e.errors.password[0];
+                        }
+
+                        self.error = obj;
+                    }
+                    
+
                 })
             
         }
