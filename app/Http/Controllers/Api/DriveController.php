@@ -60,6 +60,6 @@ class DriveController extends Controller
             Storage::disk('local')->delete('backup/' . $path);
             Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
         }
-        return 'ok';
+        return response()->json(null, 204, $headers);
     }
 }

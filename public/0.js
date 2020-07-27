@@ -105,6 +105,17 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var self = this;
       console.log(axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL);
+      console.log("email:" + this.email);
+      console.log("passowrd:" + this.password);
+      var params = new URLSearchParams();
+      params.append("email", this.email);
+      params.append("password", this.password);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", params).then(function (res) {
+        console.log(res);
+        this.$store.dispatch("loadUser");
+      })["catch"](function (error) {
+        console.error(error);
+      });
     }
   }
 });

@@ -23,11 +23,17 @@ export default new Vuex.Store({
                 state.commit("setUser", res.body);
             })
             .catch(function(error){
-
+                console.error(error);
+                state.commit("setUser", null)
             });
       },
       logout: function(){
-          axios.get()
+          axios.get("/logout")
+            .then(function(res){
+
+            }).catch(function(error){
+
+            });
       },
 
 

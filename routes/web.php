@@ -19,10 +19,14 @@ Route::get('/welcome', function () {
 
 Auth::routes();
 
-Route::get('/', 'DriveController@files')->name('home');
+Route::get('/{any}', function () {
+    return view('layouts.app');
+})->where('any', '.*');
 
-Route::get('/files', 'DriveController@files')->name('files');
+//Route::get('/', 'DriveController@files')->name('home');
 
-Route::post('/files', 'DriveController@upload');
+//Route::get('/files', 'DriveController@files')->name('files');
 
-Route::delete('files/{fileId}', 'DriveController@delete');
+//Route::post('/files', 'DriveController@upload');
+
+//Route::delete('files/{fileId}', 'DriveController@delete');

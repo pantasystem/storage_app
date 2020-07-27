@@ -39,4 +39,8 @@ const app = new Vue({
     router: require('./routes').default,
     store,
     el: '#app',
+    created: function() {
+        console.log("Vue object created");
+        store.dispatch("loadUser");
+    }
 });

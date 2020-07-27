@@ -54624,7 +54624,11 @@ Vue.component('drive', __webpack_require__(/*! ./views/Drive.vue */ "./resources
 var app = new Vue({
   router: __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js")["default"],
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
-  el: '#app'
+  el: '#app',
+  created: function created() {
+    console.log("Vue object created");
+    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch("loadUser");
+  }
 });
 
 /***/ }),
@@ -55026,10 +55030,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     loadUser: function loadUser(state) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user').then(function (res) {
         state.commit("setUser", res.body);
-      })["catch"](function (error) {});
+      })["catch"](function (error) {
+        console.error(error);
+        state.commit("setUser", null);
+      });
     },
     logout: function logout() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get();
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/logout").then(function (res) {})["catch"](function (error) {});
     }
   },
   modules: {}

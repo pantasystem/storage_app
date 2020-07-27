@@ -96,6 +96,18 @@ export default {
         login: function(){
             let self = this;
             console.log(axios.defaults.baseURL);
+            console.log("email:" + this.email);
+            console.log("passowrd:" + this.password);
+            let params = new URLSearchParams();
+            params.append("email", this.email)
+            params.append("password", this.password);
+            axios.post("/login", params)
+                .then(function(res){
+                    console.log(res);
+                    this.$store.dispatch("loadUser");
+                }).catch(function(error){
+                    console.error(error);
+                })
             
         }
     }
