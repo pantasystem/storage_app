@@ -2115,18 +2115,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      files: [],
-      user: {
-        name: ''
-      }
-    };
+    return {};
   },
   methods: function methods() {
     function deleteFile(fileId) {}
   },
   mounted: function mounted() {
     this.$store.dispatch("loadFiles");
+  },
+  computed: {
+    /*...mapGetters({
+        user: 'getUser',
+        files: 'getFiles'
+    })*/
+    user: function user() {
+      var u = this.$store.getters.getUser; //console.log("FilesComponent user:" + JSON.stringify(u));
+
+      return u;
+    },
+    files: function files() {
+      return this.$store.getters.getFiles;
+    }
   }
 });
 
@@ -2189,9 +2198,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {//user: null
+    };
+  },
   methods: {
     logout: function logout() {}
+  },
+  computed: {
+    user: function user() {
+      var u = this.$store.getters.getUser;
+      console.log("on header user:" + JSON.stringify(u));
+      return u;
+    }
   }
 });
 
@@ -37922,7 +37943,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v(_vm._s(_vm.name) + "のファイル一覧")
+      _vm._v(_vm._s(_vm.user.name) + "のファイル一覧")
     ]),
     _vm._v(" "),
     _c(
@@ -38001,70 +38022,78 @@ var render = function() {
             _c("ul", { staticClass: "navbar-nav mr-auto" }),
             _vm._v(" "),
             _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-              _vm._v("\n                   @guest\n                       "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c("router-link", { attrs: { to: "/login" } }, [
-                    _vm._v("ログイン")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(
-                "\n                       @if (Route::has('register'))\n                           "
-              ),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c("router-link", { attrs: { to: "/register" } }, [
-                    _vm._v("登録")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(
-                "\n                       @endif\n                   @else\n                       "
-              ),
-              _c("li", { staticClass: "nav-item dropdown" }, [
-                _c("a", {
-                  pre: true,
-                  attrs: {
-                    id: "navbarDropdown",
-                    class: "nav-link dropdown-toggle",
-                    href: "#",
-                    role: "button",
-                    "data-toggle": "dropdown",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu dropdown-menu-right",
-                    attrs: { "aria-labelledby": "navbarDropdown" }
-                  },
-                  [
+              !_vm.user
+                ? _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c("router-link", { attrs: { to: "/login" } }, [
+                        _vm._v("ログイン")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.user
+                ? _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c("router-link", { attrs: { to: "/register" } }, [
+                        _vm._v("登録")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.user
+                ? _c("li", { staticClass: "nav-item dropdown" }, [
                     _c(
                       "a",
                       {
-                        staticClass: "dropdown-item",
-                        on: {
-                          click: function($event) {
-                            return _vm.logout()
-                          }
+                        pre: true,
+                        attrs: {
+                          id: "navbarDropdown",
+                          class: "nav-link dropdown-toggle",
+                          href: "#",
+                          role: "button",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
                         }
                       },
-                      [_vm._v("ログアウト")]
+                      [
+                        _vm._v(
+                          "\n                               {{ user.name }}\n                           "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu dropdown-menu-right",
+                        attrs: { "aria-labelledby": "navbarDropdown" }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            on: {
+                              click: function($event) {
+                                return _vm.logout()
+                              }
+                            }
+                          },
+                          [_vm._v("ログアウト")]
+                        )
+                      ]
                     )
-                  ]
-                )
-              ]),
-              _vm._v("\n                   @endguest\n               ")
+                  ])
+                : _vm._e()
             ])
           ]
         )
@@ -55035,7 +55064,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   actions: {
     loadUser: function loadUser(state) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user_info').then(function (res) {
-        state.commit("setUser", res.body);
+        console.log("got user:" + JSON.stringify(res.data));
+        state.commit("setUser", res.data);
       })["catch"](function (error) {
         console.error(error);
         state.commit("setUser", null);
@@ -55046,11 +55076,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     loadFiles: function loadFiles(state) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/files").then(function (res) {
-        var files = res.body;
-        state.commit("setFiles", files);
+        state.commit("setFiles", res.data);
       })["catch"](function (error) {
         console.error(error);
       });
+    }
+  },
+  getters: {
+    getUser: function getUser(state) {
+      return state.user;
+    },
+    getFiles: function getFiles(state) {
+      return state.files;
     }
   },
   modules: {}

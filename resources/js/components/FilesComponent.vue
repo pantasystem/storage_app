@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-                <div class="card-header">{{ name }}のファイル一覧</div>
+                <div class="card-header">{{ user.name }}のファイル一覧</div>
 
                 <div class="card-body">
                     <div v-for="file in files" :key="file.id">
@@ -23,10 +23,7 @@
 export default {
     data: function (){
         return {
-            files: [],
-            user: {
-                name: ''
-            }
+            
         }
     },
 
@@ -37,6 +34,23 @@ export default {
     },
     mounted: function(){
         this.$store.dispatch("loadFiles");
+    },
+
+    computed: {
+        /*...mapGetters({
+            user: 'getUser',
+            files: 'getFiles'
+        })*/
+        user() {
+            let u = this.$store.getters.getUser;
+        
+            //console.log("FilesComponent user:" + JSON.stringify(u));
+            return u;
+        },
+        files() {
+            return this.$store.getters.getFiles;
+        }
     }
+    
 }
 </script>

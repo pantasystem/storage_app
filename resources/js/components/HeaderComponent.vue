@@ -18,21 +18,22 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
+                        <!--@guest-->
+                            <li class="nav-item" v-if="!user">
                                 <router-link to="/login">ログイン</router-link>
                                 <!--<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>-->
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
+                            <!--@if (Route::has('register'))-->
+                                <li class="nav-item" v-if="!user">
                                     <router-link to="/register">登録</router-link>
                                     <!--<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>-->
                                 </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
+                            <!--@endif-->
+                            <!--@else-->
+                            <li class="nav-item dropdown" v-if="user">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <!--{{ Auth::user()->name }} <span class="caret"></span>-->
+                                    {{ user.name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -40,7 +41,7 @@
                                     
                                 </div>
                             </li>
-                        @endguest
+                        <!--@endguest-->
                     </ul>
                 </div>
             </div>
@@ -48,12 +49,27 @@
 </template>
 <script>
 export default {
+
+    data() {
+        return {
+            //user: null
+
+        }
+    },
     
     methods: {
         logout : function(){
 
         }
     },
+    computed: {
+        user() {
+            let u = this.$store.getters.getUser;
+            console.log("on header user:" + JSON.stringify(u));
+            return u;
+
+        }
+    }
     
 }
 </script>

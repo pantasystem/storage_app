@@ -23,7 +23,8 @@ export default new Vuex.Store({
       loadUser: function(state){
           axios.get('/user_info')
             .then(function(res){
-                state.commit("setUser", res.body);
+                console.log("got user:" + JSON.stringify(res.data));
+                state.commit("setUser", res.data);
             })
             .catch(function(error){
                 console.error(error);
@@ -41,8 +42,7 @@ export default new Vuex.Store({
       loadFiles: function(state){
           axios.get("/files")
             .then(function(res){
-                let files = res.body;
-                state.commit("setFiles", files);
+                state.commit("setFiles", res.data);
             }).catch(function(error){
                 console.error(error);
             })
@@ -50,6 +50,14 @@ export default new Vuex.Store({
       }
 
 
+  },
+  getters: {
+      getUser(state){
+          return state.user;
+      },
+      getFiles(state){
+          return state.files;
+      }
   },
 
   modules: {
