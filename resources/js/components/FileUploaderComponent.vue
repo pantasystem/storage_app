@@ -31,7 +31,6 @@ export default {
         },
         
         uploadFile: function(){
-            let self = this;
             let form = new FormData();
             form.append("file", this.file);
             axios.post("/files", form)

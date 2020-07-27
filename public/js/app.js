@@ -2087,7 +2087,6 @@ __webpack_require__.r(__webpack_exports__);
     uploadFile: function uploadFile() {
       var _this = this;
 
-      var self = this;
       var form = new FormData();
       form.append("file", this.file);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/files", form).then(function (res) {
