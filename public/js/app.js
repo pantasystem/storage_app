@@ -38053,10 +38053,9 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        pre: true,
+                        staticClass: "nav-link dropdown-toggle",
                         attrs: {
                           id: "navbarDropdown",
-                          class: "nav-link dropdown-toggle",
                           href: "#",
                           role: "button",
                           "data-toggle": "dropdown",
@@ -38066,7 +38065,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                               {{ user.name }}\n                           "
+                          "\n                               " +
+                            _vm._s(_vm.user.name) +
+                            "\n                           "
                         )
                       ]
                     ),
