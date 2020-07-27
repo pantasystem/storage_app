@@ -2085,11 +2085,14 @@ __webpack_require__.r(__webpack_exports__);
       this.file = files[0];
     },
     uploadFile: function uploadFile() {
+      var _this = this;
+
       var self = this;
       var form = new FormData();
       form.append("file", this.file);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/files", form).then(function (res) {
-        self.$store.dispatch("loadFiles");
+        _this.$store.dispatch("loadFiles");
+
         console.log(res);
       })["catch"](function (error) {
         console.log("uploadError:" + error);

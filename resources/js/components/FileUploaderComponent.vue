@@ -35,8 +35,8 @@ export default {
             let form = new FormData();
             form.append("file", this.file);
             axios.post("/files", form)
-                .then(function(res){
-                    self.$store.dispatch("loadFiles");
+                .then((res)=>{
+                    this.$store.dispatch("loadFiles");
                     console.log(res);
                 }).catch(function(error){
                     console.log("uploadError:" + error);
