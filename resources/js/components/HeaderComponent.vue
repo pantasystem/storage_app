@@ -37,7 +37,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" @click="logout()" >ログアウト</a>
+                                    <a class="dropdown-item" @click="logout()" onclick="event.preventDefault();">ログアウト</a>
                                     
                                 </div>
                             </li>

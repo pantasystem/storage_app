@@ -38108,6 +38108,7 @@ var render = function() {
                           "a",
                           {
                             staticClass: "dropdown-item",
+                            attrs: { onclick: "event.preventDefault();" },
                             on: {
                               click: function($event) {
                                 return _vm.logout()
