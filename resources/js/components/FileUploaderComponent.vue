@@ -6,23 +6,46 @@
     </div>
     
     <div class="card-body">
-        <input type="file" name="file" class="form-control-file">
+        <input type="file" name="file" class="form-control-file" @change="selectedFile">
         <button type="submit" class="btn btn-primary" id="upload-button" @click="upload()">アップロード</button>
     </div>
 </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
+    
     data: function(){
         return {
-            file: ''
+            file: null
         }
     },
 
     methods :{
+        selectedFile: function(event){
+            let files = event.target.files;
+            console.log(files[0]);
+            this.file = files[0];
+
+        },
+        
+        uploadFile: function(){
+            let self = this;
+            let form = new FormData();
+            form.append("file", this.file);
+            axios.post("/files", form)
+                .then(function(res){
+                    self.$store.dispatch("loadFiles");
+                    console.log(res);
+                }).catch(function(error){
+                    console.log("uploadError:" + error);
+                });
+        },
         upload: function(){
-            console.log(file);
-        }
+            console.log(this.file);
+            this.uploadFile();
+        },
     }
 }
 </script>

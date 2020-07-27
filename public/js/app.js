@@ -2056,6 +2056,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2069,15 +2071,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      file: ''
+      file: null
     };
   },
   methods: {
+    selectedFile: function selectedFile(event) {
+      var files = event.target.files;
+      console.log(files[0]);
+      this.file = files[0];
+    },
+    uploadFile: function uploadFile() {
+      var self = this;
+      var form = new FormData();
+      form.append("file", this.file);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/files", form).then(function (res) {
+        self.$store.dispatch("loadFiles");
+        console.log(res);
+      })["catch"](function (error) {
+        console.log("uploadError:" + error);
+      });
+    },
     upload: function upload() {
-      console.log(file);
+      console.log(this.file);
+      this.uploadFile();
     }
   }
 });
@@ -37902,7 +37922,8 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("input", {
         staticClass: "form-control-file",
-        attrs: { type: "file", name: "file" }
+        attrs: { type: "file", name: "file" },
+        on: { change: _vm.selectedFile }
       }),
       _vm._v(" "),
       _c(
