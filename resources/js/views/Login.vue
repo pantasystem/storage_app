@@ -104,7 +104,7 @@ export default {
             axios.post("/login", params)
                 .then(function(res){
                     console.log(res);
-                    this.$store.dispatch("loadUser");
+                    self.$store.dispatch("loadUser");
                 }).catch(function(error){
                     console.error(error);
                 })

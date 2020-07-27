@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
       params.append("password", this.password);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", params).then(function (res) {
         console.log(res);
-        this.$store.dispatch("loadUser");
+        self.$store.dispatch("loadUser");
       })["catch"](function (error) {
         console.error(error);
       });

@@ -14,11 +14,14 @@ export default new Vuex.Store({
       setUser: function(state, user){
           state.user = user;
 
+      },
+      setFiles: function(state, files){
+          state.files = files;
       }
   },
   actions: {
       loadUser: function(state){
-          axios.get('/user')
+          axios.get('/user_info')
             .then(function(res){
                 state.commit("setUser", res.body);
             })
@@ -35,6 +38,16 @@ export default new Vuex.Store({
 
             });
       },
+      loadFiles: function(state){
+          axios.get("/files")
+            .then(function(res){
+                let files = res.body;
+                state.commit("setFiles", files);
+            }).catch(function(error){
+                console.error(error);
+            })
+
+      }
 
 
   },

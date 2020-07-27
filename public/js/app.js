@@ -2124,6 +2124,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: function methods() {
     function deleteFile(fileId) {}
+  },
+  mounted: function mounted() {
+    this.$store.dispatch("loadFiles");
   }
 });
 
@@ -55024,11 +55027,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   mutations: {
     setUser: function setUser(state, user) {
       state.user = user;
+    },
+    setFiles: function setFiles(state, files) {
+      state.files = files;
     }
   },
   actions: {
     loadUser: function loadUser(state) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user_info').then(function (res) {
         state.commit("setUser", res.body);
       })["catch"](function (error) {
         console.error(error);
@@ -55037,6 +55043,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     logout: function logout() {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/logout").then(function (res) {})["catch"](function (error) {});
+    },
+    loadFiles: function loadFiles(state) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/files").then(function (res) {
+        var files = res.body;
+        state.commit("setFiles", files);
+      })["catch"](function (error) {
+        console.error(error);
+      });
     }
   },
   modules: {}

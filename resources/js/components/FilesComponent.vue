@@ -34,6 +34,9 @@ export default {
         function deleteFile(fileId){
             
         }
+    },
+    mounted: function(){
+        this.$store.dispatch("loadFiles");
     }
 }
 </script>
