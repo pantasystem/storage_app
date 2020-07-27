@@ -2140,7 +2140,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   methods: function methods() {
-    function deleteFile(fileId) {}
+    function deleteFile(file) {
+      this.$store.dispatch("deleteFile", file);
+    }
   },
   mounted: function mounted() {
     this.$store.dispatch("loadFiles");
@@ -37991,7 +37993,7 @@ var render = function() {
                 staticClass: "delete_file",
                 on: {
                   click: function($event) {
-                    return _vm.deleteFile(file.id)
+                    return _vm.deleteFile(file)
                   }
                 }
               },
@@ -55111,6 +55113,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    deleteFile: function deleteFile(state, file) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]("files/" + file.id).then(function (res) {
+        state.dispatch("loadFiles");
+      })["catch"](function (e) {});
     }
   },
   getters: {

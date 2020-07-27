@@ -9,7 +9,7 @@
                                 {{ file.name }}
                             </a>
                             
-                        <button class="delete_file" @click="deleteFile(file.id)">削除</button>
+                        <button class="delete_file" @click="deleteFile(file)">削除</button>
                         
                         </div>
                     </div>        
@@ -28,8 +28,8 @@ export default {
     },
 
     methods(){
-        function deleteFile(fileId){
-            
+        function deleteFile(file){
+            this.$store.dispatch("deleteFile", file);
         }
     },
     mounted: function(){

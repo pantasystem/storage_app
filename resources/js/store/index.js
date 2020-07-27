@@ -52,6 +52,14 @@ export default new Vuex.Store({
 
       },
       
+      deleteFile: function(state, file){
+          axios.delete("files/" + file.id)
+            .then((res)=>{
+                state.dispatch("loadFiles");
+            }).catch((e)=>{
+
+            })
+      }
 
 
   },
