@@ -1,34 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class DriveController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
-    }
+    
 
     public function upload(Request $request)
     {
@@ -47,7 +36,7 @@ class DriveController extends Controller
                 'size' => $size,
         ]);
 
-        return redirect()->route('files');
+        return $file;
     }
 
     public function files(Request $requiest)
@@ -55,9 +44,9 @@ class DriveController extends Controller
         $user = Auth::user();
         //$user = User::findOrFail($userId)->first();
         //$files = $user->files();
-        $files = $user->files();
+        $files = $user->files;
 
-        return view('drive.files',compact('files', 'user'));
+        return $files;
     }
 
     public function delete(Request $request, $fileId)
@@ -69,9 +58,9 @@ class DriveController extends Controller
         $path = $file->path;
         
         if(Storage::disk('public')->exists($path)){
-            Storage::disk('local')->delete('backup/' . $path);
-            Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
+            //Storage::disk('local')->delete('backup/' . $path);
+            Storage::disk('local')->delete('public/' . $path);
         }
-        return redirect()->route('files');
+        return Response::make("", 204);
     }
 }

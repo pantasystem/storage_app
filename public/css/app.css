@@ -10940,3 +10940,7 @@ a.text-dark:focus {
   margin-top: 8px;
 }
 
+.delete_file {
+  float: right;
+}
+

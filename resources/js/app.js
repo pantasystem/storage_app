@@ -1,3 +1,6 @@
+import store from './store';
+
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -26,7 +29,18 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('nav-header', require('./components/HeaderComponent.vue').default);
+
+Vue.component('drive', require('./views/Drive.vue').default);
+
+
 
 const app = new Vue({
+    router: require('./routes').default,
+    store,
     el: '#app',
+    created: function() {
+        console.log("Vue object created");
+        store.dispatch("loadUser");
+    }
 });
