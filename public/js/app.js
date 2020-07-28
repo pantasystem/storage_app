@@ -2139,8 +2139,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  methods: function methods() {
-    function deleteFile(file) {
+  methods: {
+    deleteFile: function deleteFile(file) {
+      console.log("削除します");
       this.$store.dispatch("deleteFile", file);
     }
   },
@@ -55168,7 +55169,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     deleteFile: function deleteFile(state, file) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]("files/" + file.id).then(function (res) {
-        state.dispatch("loadFiles");
+        //state.dispatch("loadFiles");
+        if (res.data && res.data.length) {
+          state.commit("setFiles", res.data);
+          console.log(JSON.stringify(res.data));
+        } else {
+          state.dispatch("loadFiles");
+        }
       })["catch"](function (e) {});
     }
   },

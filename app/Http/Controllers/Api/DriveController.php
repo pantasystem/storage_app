@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class DriveController extends Controller
 {
@@ -58,8 +59,8 @@ class DriveController extends Controller
         
         if(Storage::disk('public')->exists($path)){
             Storage::disk('local')->delete('backup/' . $path);
-            Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
+            //Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
         }
-        return response()->json(null, 204, $headers);
+        return Response::make("", 204);
     }
 }

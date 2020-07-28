@@ -27,8 +27,9 @@ export default {
         }
     },
 
-    methods(){
-        function deleteFile(file){
+    methods: {
+        deleteFile: function(file){
+            console.log("削除します");
             this.$store.dispatch("deleteFile", file);
         }
     },
