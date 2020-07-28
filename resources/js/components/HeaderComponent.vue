@@ -1,10 +1,7 @@
 <template>
      <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="/">
-                    <!--{{ config('app.name', 'Laravel') }}-->
-                    ふぁいるさーばー
-                </a>
+                <router-link class="navbar-brand" to="/">ふぁいるさーばー</router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

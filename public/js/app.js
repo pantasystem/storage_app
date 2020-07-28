@@ -2220,9 +2220,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {//user: null
@@ -38049,101 +38046,108 @@ var render = function() {
     "nav",
     { staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm" },
     [
-      _c("div", { staticClass: "container" }, [
-        _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
-          _vm._v("\n               ふぁいるさーばー\n           ")
-        ]),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "collapse navbar-collapse",
-            attrs: { id: "navbarSupportedContent" }
-          },
-          [
-            _c("ul", { staticClass: "navbar-nav mr-auto" }),
-            _vm._v(" "),
-            _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-              !_vm.user
-                ? _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c("router-link", { attrs: { to: "/login" } }, [
-                        _vm._v("ログイン")
-                      ])
-                    ],
-                    1
-                  )
-                : _vm._e(),
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "router-link",
+            { staticClass: "navbar-brand", attrs: { to: "/" } },
+            [_vm._v("ふぁいるさーばー")]
+          ),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav mr-auto" }),
               _vm._v(" "),
-              !_vm.user
-                ? _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c("router-link", { attrs: { to: "/register" } }, [
-                        _vm._v("登録")
-                      ])
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.user
-                ? _c("li", { staticClass: "nav-item dropdown" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link dropdown-toggle",
-                        attrs: {
-                          id: "navbarDropdown",
-                          href: "#",
-                          role: "button",
-                          "data-toggle": "dropdown",
-                          "aria-haspopup": "true",
-                          "aria-expanded": "false"
-                        }
-                      },
+              _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+                !_vm.user
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
                       [
-                        _vm._v(
-                          "\n                               " +
-                            _vm._s(_vm.user.name) +
-                            "\n                           "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "dropdown-menu dropdown-menu-right",
-                        attrs: { "aria-labelledby": "navbarDropdown" }
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            attrs: { onclick: "event.preventDefault();" },
-                            on: {
-                              click: function($event) {
-                                return _vm.logout()
-                              }
-                            }
-                          },
-                          [_vm._v("ログアウト")]
-                        )
-                      ]
+                        _c("router-link", { attrs: { to: "/login" } }, [
+                          _vm._v("ログイン")
+                        ])
+                      ],
+                      1
                     )
-                  ])
-                : _vm._e()
-            ])
-          ]
-        )
-      ])
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.user
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c("router-link", { attrs: { to: "/register" } }, [
+                          _vm._v("登録")
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.user
+                  ? _c("li", { staticClass: "nav-item dropdown" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link dropdown-toggle",
+                          attrs: {
+                            id: "navbarDropdown",
+                            href: "#",
+                            role: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                               " +
+                              _vm._s(_vm.user.name) +
+                              "\n                           "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown-menu dropdown-menu-right",
+                          attrs: { "aria-labelledby": "navbarDropdown" }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { onclick: "event.preventDefault();" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.logout()
+                                }
+                              }
+                            },
+                            [_vm._v("ログアウト")]
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ]
+          )
+        ],
+        1
+      )
     ]
   )
 }
@@ -55060,7 +55064,14 @@ var routes = [{
   beforeEnter: function beforeEnter(to, from, next) {
     var isNeedLogin = _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters.getNeedLogin;
     console.log("beforeEnter: to:" + to + ", from:" + from + ", needLogin:" + isNeedLogin);
-    next();
+
+    if (!isNeedLogin) {
+      next();
+    } else {
+      next({
+        path: "/login"
+      });
+    }
   }
 }, {
   path: '/login',

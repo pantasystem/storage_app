@@ -13,7 +13,11 @@ const routes = [
         beforeEnter: (to, from, next)=>{
             let isNeedLogin = store.getters.getNeedLogin;
             console.log("beforeEnter: to:" + to + ", from:" + from + ", needLogin:" + isNeedLogin);
-            next();
+            if(!isNeedLogin){
+                next();
+            }else{
+                next({path: "/login"});
+            }
         }
     },
     {
