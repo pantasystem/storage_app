@@ -2274,6 +2274,23 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     'file-upload-component': _components_FileUploaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     'files-component': _components_FilesComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  created: function created() {
+    var need = this.$store.getters.getNeedLogin;
+    console.log("Drive created need:" + need);
+  },
+  computed: {
+    isNeedLogin: function isNeedLogin() {
+      return this.$store.getters.getNeedLogin;
+    }
+  },
+  watch: {
+    isNeedLogin: function isNeedLogin(value, old) {
+      if (value == true) {
+        console.log("Drive: ログインが必要です");
+        this.$router.replace("/login");
+      }
+    }
   }
 });
 
@@ -55030,6 +55047,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _views_Drive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/Drive */ "./resources/js/views/Drive.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+
 
 
 
@@ -55037,12 +55056,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var routes = [{
   path: '/',
   name: 'drive',
-  component: _views_Drive__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _views_Drive__WEBPACK_IMPORTED_MODULE_2__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    var isNeedLogin = _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters.getNeedLogin;
+    console.log("beforeEnter: to:" + to + ", from:" + from + ", needLogin:" + isNeedLogin);
+    next();
+  }
 }, {
   path: '/login',
   name: 'login',
   component: function component() {
     return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Login.vue */ "./resources/js/views/Login.vue"));
+  },
+  beforeEnter: function beforeEnter(to, from, next) {
+    var isNeedLogin = _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters.getNeedLogin;
+    console.log("beforeEnter: to:" + to + ", from:" + from + ", needLogin:" + isNeedLogin);
+    next();
   }
 }, {
   path: '/register',
@@ -55080,7 +55109,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     user: null,
-    files: []
+    files: [],
+    isNeedLogin: false
   },
   mutations: {
     setUser: function setUser(state, user) {
@@ -55088,6 +55118,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setFiles: function setFiles(state, files) {
       state.files = files;
+    },
+    needLogin: function needLogin(state, isNeed) {
+      state.isNeedLogin = isNeed;
     }
   },
   actions: {
@@ -55095,16 +55128,24 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/user_info').then(function (res) {
         console.log("got user:" + JSON.stringify(res.data));
         state.commit("setUser", res.data);
+        state.commit("needLogin", false);
       })["catch"](function (error) {
         console.error(error);
         state.commit("setUser", null);
+
+        if (error.response.status == 401) {
+          state.commit("needLogin", true);
+          console.log("認証が必要です");
+        } else {
+          console.log("401ではなかった");
+        }
       });
     },
     logout: function logout(state) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/logout").then(function (res) {
         state.commit("setUser", null);
         state.commit("setFiles", []);
-        this.$router.Push("login");
+        state.commit("needLogin", true); //this.$router.Push("login");
       })["catch"](function (error) {});
     },
     loadFiles: function loadFiles(state) {
@@ -55126,6 +55167,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     getFiles: function getFiles(state) {
       return state.files;
+    },
+    getNeedLogin: function getNeedLogin(state) {
+      return state.isNeedLogin;
     }
   },
   modules: {}

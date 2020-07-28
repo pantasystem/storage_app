@@ -99,6 +99,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
+      var _this = this;
+
       var self = this;
       console.log(axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL);
       console.log("email:" + this.email);
@@ -109,6 +111,9 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", params).then(function (res) {
         console.log(res);
         self.$store.dispatch("loadUser");
+        self.$store.commit("needLogin", false);
+
+        _this.$router.replace("/");
       })["catch"](function (error) {
         //self.error = self.error.response.data;
         if (error.response.data) {

@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
       user: null,
-      files: []
+      files: [],
+      isNeedLogin: false,
 
   },
   mutations: {
@@ -17,6 +18,10 @@ export default new Vuex.Store({
       },
       setFiles: function(state, files){
           state.files = files;
+      },
+
+      needLogin: function(state, isNeed){
+          state.isNeedLogin = isNeed;
       }
   },
   actions: {
@@ -25,10 +30,17 @@ export default new Vuex.Store({
             .then(function(res){
                 console.log("got user:" + JSON.stringify(res.data));
                 state.commit("setUser", res.data);
+                state.commit("needLogin", false);
             })
             .catch(function(error){
                 console.error(error);
-                state.commit("setUser", null)
+                state.commit("setUser", null);
+                if(error.response.status == 401){
+                    state.commit("needLogin", true);
+                    console.log("認証が必要です");
+                }else{
+                    console.log("401ではなかった");
+                }
             });
       },
       logout: function(state){
@@ -36,8 +48,9 @@ export default new Vuex.Store({
             .then(function(res){
                 state.commit("setUser", null);
                 state.commit("setFiles", []);
-
-                this.$router.Push("login");
+                state.commit("needLogin", true);
+                //this.$router.Push("login");
+                
             }).catch(function(error){
 
             });
@@ -69,6 +82,9 @@ export default new Vuex.Store({
       },
       getFiles(state){
           return state.files;
+      },
+      getNeedLogin(state){
+          return state.isNeedLogin;
       }
   },
 

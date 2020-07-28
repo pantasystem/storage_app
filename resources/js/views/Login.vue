@@ -99,10 +99,12 @@ export default {
             params.append("email", this.email)
             params.append("password", this.password);
             axios.post("/login", params)
-                .then(function(res){
+                .then((res)=>{
                     console.log(res);
                     self.$store.dispatch("loadUser");
-                }).catch(function(error){
+                    self.$store.commit("needLogin", false);
+                    this.$router.replace("/");
+                }).catch((error)=>{
                     //self.error = self.error.response.data;
                     if(error.response.data){
                         //console.log("login error" + JSON.stringify(error));
