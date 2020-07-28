@@ -38008,7 +38008,8 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "delete_file",
+                staticClass: "bth btn-light delete_file",
+                attrs: { type: "button" },
                 on: {
                   click: function($event) {
                     return _vm.deleteFile(file)
