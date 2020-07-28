@@ -58,8 +58,8 @@ class DriveController extends Controller
         $path = $file->path;
         
         if(Storage::disk('public')->exists($path)){
-            Storage::disk('local')->delete('backup/' . $path);
-            //Storage::disk('local')->move('public/' . $path, 'backup/' . $path);
+            //Storage::disk('local')->delete('backup/' . $path);
+            Storage::disk('local')->delete('public/' . $path);
         }
         return Response::make("", 204);
     }
