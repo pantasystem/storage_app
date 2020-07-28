@@ -2280,6 +2280,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isNeedLogin: function isNeedLogin() {
       return this.$store.getters.getNeedLogin;
+    },
+    user: function user() {
+      return this.$store.getters.getUser;
     }
   },
   watch: {
@@ -38197,12 +38200,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-8" },
-        [_c("file-upload-component"), _vm._v(" "), _c("files-component")],
-        1
-      )
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "col-md-8" },
+            [_c("file-upload-component"), _vm._v(" "), _c("files-component")],
+            1
+          )
+        : _vm._e()
     ])
   ])
 }

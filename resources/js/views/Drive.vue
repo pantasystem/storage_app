@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8" v-if="user">
             <file-upload-component></file-upload-component>
             <files-component></files-component>
             
@@ -28,6 +28,9 @@ export default {
     computed:{
         isNeedLogin(){
             return this.$store.getters.getNeedLogin;
+        },
+        user(){
+            return this.$store.getters.getUser;
         }
     },
     watch: {
